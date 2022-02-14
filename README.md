@@ -1,7 +1,7 @@
 # DOOMER
 
-GUI for good old boomer DOOM gamers (like myself 💪).  
-Uses prboom as engine.
+GUI for good old boomer DOOM gamers (like me 💪).  
+Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
 
 ## Supported titles:
 - DOOM
@@ -18,7 +18,7 @@ Uses prboom as engine.
 - Record a demo file
 - Join a server
 - Host server by yourself
-- Choose if you want to have:
+- Choose whether you want:
     - music
     - mouse
     - monsters
@@ -33,3 +33,5 @@ Uses prboom as engine.
 - Tabs
 - New background
 - New layout
+- Don't create "batch.bat" instead do *os.system()* call
+- Setup script or create README section for set up
