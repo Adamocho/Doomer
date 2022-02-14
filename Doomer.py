@@ -1,14 +1,9 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QWizard, QFileDialog
-from PyQt5.QtCore import pyqtSlot, QEvent
-from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtGui import QFont, QIcon, QPixmap
 from datetime import datetime
 import os
 import sys
-import subprocess
-
-
 
 
 class App(QWidget):
