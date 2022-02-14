@@ -57,6 +57,15 @@ class App(QWidget):
             'Nightmare': 5
         }
 
+        self.settings = {
+            self.record_cbx.isChecked(): f'record {datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}',
+            self.fast_cbx.isChecked(): 'fast',
+            self.nomo_cbx.isChecked(): 'nomonsters',
+            self.music_cbx.isChecked(): 'nomusic',
+            self.mouse_cbx.isChecked(): 'nomouse',
+            self.respawn_cbx.isChecked(): 'respawn'
+        }
+
         # Window properties
         self.setGeometry(800, 300, self.win_width, self.win_height)
         self.setFixedSize(self.win_width, self.win_height)
@@ -134,29 +143,27 @@ class App(QWidget):
         #         -iwad wads/{self.titles[self.title_combo.currentText()]} {self.wads[self.map_le.text()]} \
         #         -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
         
-        command = f'prboom-plus -iwad wads/{self.titles[self.title_combo.currentText()]} -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
+        command = f'prboom-plus \
+            -iwad wads/{self.titles[self.title_combo.currentText()]} \
+            -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
 
-        if self.map_le.text() != '' and self.title_combo.currentText() != 'Doom II: Master Levels':
-            command += f' -warp {self.map_le.text()}'
-        if self.ip_le.text() != '':
-            command += f' -net {self.ip_le.text()}'
-        if self.record_cbx.isChecked():
-            command += f' -record {datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}'
-        if self.fast_cbx.isChecked():
-            command += ' -fast'
-        if self.nomo_cbx.isChecked():
-            command += ' -nomonsters'
-        if self.music_cbx.isChecked():
-            command += ' -nomusic'
-        if self.mouse_cbx.isChecked():
-            command += ' -nomouse'
-        if self.respawn_cbx.isChecked():
-            command += ' -respawn'
+        # Apply chosen settings
+        if warp := self.map_le.text(): # and self.title_combo.currentText() != 'Doom II: Master Levels':
+            command += f' -warp {warp}'
+        if net := self.ip_le.text():
+            command += f' -net {net}'
 
+        for key in self.settings:
+            if key:
+                command += ' -' + self.settings[key]
+
+        print(command)
+
+        # Execute final command string
         os.system(command)
 
 
-    # Server logic
+    # Server logic NOT IMPLEMENTED
     def on_click_server(self):
         print("Server")
 
