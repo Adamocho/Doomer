@@ -6,6 +6,7 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap
 from datetime import datetime
 import sys
 import subprocess
+import os
 
 
 
@@ -142,4 +143,4 @@ class App(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
-    sys.exit(app.exec_())
+    sys.exit(a

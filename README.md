@@ -26,5 +26,10 @@ Uses prboom as engine.
     - respawning monsters  
     and much, much more...
 
-**`Comp level support comming soon..`**
-
+### Not yet implemented:
+- Compatibility level support
+- Save files dependent on title
+- Link to Doom Eternal (if found) // optional
+- Tabs
+- New background
+- New layout
