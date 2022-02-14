@@ -57,15 +57,6 @@ class App(QWidget):
             'Nightmare': 5
         }
 
-        self.settings = {
-            self.record_cbx.isChecked(): f'record {datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}',
-            self.fast_cbx.isChecked(): 'fast',
-            self.nomo_cbx.isChecked(): 'nomonsters',
-            self.music_cbx.isChecked(): 'nomusic',
-            self.mouse_cbx.isChecked(): 'nomouse',
-            self.respawn_cbx.isChecked(): 'respawn'
-        }
-
         # Window properties
         self.setGeometry(800, 300, self.win_width, self.win_height)
         self.setFixedSize(self.win_width, self.win_height)
@@ -135,27 +126,43 @@ class App(QWidget):
 
         self.show()
 
-    # Logic for running the game with chosen settings
-    def on_click(self):  
-            # For master levels implementation
+    
+    def on_click(self):
+        """
+        Implements logic for UI
+
+        Takes no arguments
+        Results in creating and sending a command to the shell
+        """
+
+        settings = {
+            self.record_cbx.isChecked(): f'record {datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}',
+            self.fast_cbx.isChecked(): 'fast',
+            self.nomo_cbx.isChecked(): 'nomonsters',
+            self.music_cbx.isChecked(): 'nomusic',
+            self.mouse_cbx.isChecked(): 'nomouse',
+            self.respawn_cbx.isChecked(): 'respawn'
+        }
+
+        # For master levels implementation
         # if self.title_combo.currentText() == 'Doom II: Master Levels':
         #     command = f'prboom-plus \
         #         -iwad wads/{self.titles[self.title_combo.currentText()]} {self.wads[self.map_le.text()]} \
-        #         -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
+        #         -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'    
         
         command = f'prboom-plus \
             -iwad wads/{self.titles[self.title_combo.currentText()]} \
             -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
 
         # Apply chosen settings
-        if warp := self.map_le.text(): # and self.title_combo.currentText() != 'Doom II: Master Levels':
+        if (warp := self.map_le.text()): # and self.title_combo.currentText() != 'Doom II: Master Levels':
             command += f' -warp {warp}'
-        if net := self.ip_le.text():
+        if (net := self.ip_le.text()):
             command += f' -net {net}'
 
-        for key in self.settings:
+        for key in settings:
             if key:
-                command += ' -' + self.settings[key]
+                command += ' -' + settings[key]
 
         print(command)
 
