@@ -28,27 +28,31 @@ class App(QWidget):
         self.setGeometry(800, 300, self.w, self.h)
         self.setFixedSize(self.w, self.h)
         self.setWindowTitle("Prboom GUI")
-        # self.setWindowIcon(QIcon('C:\\Users\\oller\\Desktop\\prboom+\\icons\\prbico1.png'))
         self.setWindowIcon(QIcon('icons/prbico1.png'))
 
         self.setFont(QFont('MS Shell Dlg 2', 15))
 
 
         #   Now there's some UI
-        self.l1 = QtWidgets.QLabel(self)                                                                                # Label = canvas for image
-        # self.l1.setPixmap(QPixmap('C:\\Users\\oller\\Desktop\\prboom+\\icons\\prbico1.png').scaled(self.w, self.h))     # Assign img to label + scale it to match window size
+        # Label = canvas for image
+        self.l1 = QtWidgets.QLabel(self)                                                                                
+        # Assign img to label + scale it to match window size
         self.l1.setPixmap(QPixmap('icons/prbico1.png').scaled(self.w, self.h))
 
         # wad, skill, warp, nomonsters, fast, record, fastdemo, timedemo, playdemo, nomusic, nomouse, net
 
-        self.combo1 = QtWidgets.QComboBox(self)                                                                         # Game
+        # Game
+        self.combo1 = QtWidgets.QComboBox(self)                                                                         
         self.combo1.setGeometry(5, 5, 300, 30)
         self.combo1.addItems(self.gamel)
 
-        self.combo2 = QtWidgets.QComboBox(self)                                                                         # Difficulty
+        # Difficulty
+        self.combo2 = QtWidgets.QComboBox(self)                                                                         
         self.combo2.setGeometry(315, 5, 125, 30)
         self.combo2.addItems(self.diffl)
-        self.combo2.setCurrentIndex(2)                                                                                  # Default is HMP
+        # Default is HMP
+        self.combo2.setCurrentIndex(2)        
+
 
         self.cbox1 = QtWidgets.QCheckBox('Record', self)
         self.cbox1.setGeometry(170, 40, 100, 30)
@@ -74,7 +78,8 @@ class App(QWidget):
 
         #self.button2 = QtWidgets.QPushButton('Start Server', self)
         #self.button2.setGeometry(295, 395, 150, 50)
-        #self.button2.clicked.connect(self.on_click_server)   # UNKOMMENT THIS WHEN YOU FINISH WORKING ON SERVER SCRIPT!!!!!!!!!!!!!
+            # UNKOMMENT THIS WHEN YOU FINISH WORKING ON SERVER SCRIPT!!!!!!!!!!!!!
+        #self.button2.clicked.connect(self.on_click_server)   
 
         self.le1 = QtWidgets.QLineEdit(self)
         self.le1.setGeometry(30, 200, 100, 35)
@@ -84,16 +89,17 @@ class App(QWidget):
         self.le2.setGeometry(150, 200, 250, 35)
         self.le2.setPlaceholderText('IP for multiplayer game')
 
-        self.show()                                                                                                     # Show window with everything declared earlier
+        # Show window with everything declared earlier
+        self.show()                                                                                                    
 
     def on_click(self):              # Create string for bat file and run it
         # print('|', self.le1.text(), '|')
         if self.combo1.currentText() == 'Doom II: Master Levels':
-            # batstring = f'C:/Users/oller/Desktop/prboom+/prboom-plus -iwad wads/{self.gamel[self.combo1.currentText()]} {self.masterl[int(self.le1.text())]} -skill {str(self.diffl[self.combo2.currentText()])}'
+            # batstring = f'prboom-plus -iwad wads/{self.gamel[self.combo1.currentText()]} {self.masterl[int(self.le1.text())]} -skill {str(self.diffl[self.combo2.currentText()])}'
             batstring = f'prboom-plus -iwad wads/{self.gamel[self.combo1.currentText()]} {self.masterl[self.le1.text()]} -skill {str(self.diffl[self.combo2.currentText()])}'
 
         else:
-            # batstring = f'C:/Users/oller/Desktop/prboom+/prboom-plus -iwad wads/{self.gamel[self.combo1.currentText()]} -skill {str(self.diffl[self.combo2.currentText()])}'
+            # batstring = f'prboom-plus -iwad wads/{self.gamel[self.combo1.currentText()]} -skill {str(self.diffl[self.combo2.currentText()])}'
             batstring = f'prboom-plus -iwad wads/{self.gamel[self.combo1.currentText()]} -skill {str(self.diffl[self.combo2.currentText()])}'
 
 
@@ -121,9 +127,7 @@ class App(QWidget):
 
         print(batstring)
         fullstring = 'C:/Users/oller/Desktop/Games/prboom+/' + batstring
-
-        # p = subprocess.Popen('C:/Development/Python/Work_In_Progress/batch.bat', shell=True, stdout=subprocess.PIPE)
-        # p = subprocess.Popen('batch.bat', shell=True, stdout=subprocess.PIPE)
+        
         p = subprocess.Popen(fullstring, shell=True, stdout=subprocess.PIPE)
 
         stdout, stderr = p.communicate()
@@ -143,4 +147,4 @@ class App(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
-    sys.exit(a
+    sys.exit(app.exec_())
