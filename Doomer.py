@@ -52,6 +52,28 @@ class App(QWidget):
             'Nightmare': 5
         }
 
+        self.complevels = {
+            'doom_12' : 0,      # Partial (improved) emulation of Doom.exe v1.2
+            'doom_1666' : 1,    # Partial emulation of Doom.exe/Doom2.exe v1.666
+            'doom2_19' : 2,     # Emulates the original Doom.exe v1.9 & Doom2's doom2.exe v1.9
+            'ultdoomy' : 3,     # Emulates Ultimate Doom v1.9 and Doom95
+            'finaldoom' : 4,    # Emulates Final Doom's doom2.exe
+            'dosdoom' : 5,      # Emulates Dosdoom .47
+            'tasdoom' : 6,      # Emulates Tasdoom.exe
+            'boom' : 7,         # Emulates Boom's compatibility mode
+            'boom_201' : 8,     # Emulates Boom v2.01
+            'boom_202' : 9,     # Emulates Boom v2.02
+            'lxdoom_1' : 10,    # Emulates LxDoom v1.4.x
+            'mbf' : 11,         # Emulates MBF
+            'prboom_1' : 12,    # Emulates PrBoom v2.03beta
+            'prboom_2' : 13,    # Emulates PrBoom v2.1.0
+            'prboom_3' : 14,    # Emulates PrBoom v2.1.1-2.2.6
+            'prboom_4' : 15,    # Emulates PrBoom v2.3.x
+            'prboom_5' : 16,    # Emulates PrBoom v2.4.0
+            'prboom_6' : 17,    # Latest PrBoom-plus
+            'default' : -1,     # Current Prboom-plus
+        }
+
         # Window properties
         self.setGeometry(800, 300, self.win_width, self.win_height)
         self.setFixedSize(self.win_width, self.win_height)
