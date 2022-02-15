@@ -4,7 +4,8 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap
 from datetime import datetime
 import os
 import sys
-
+import asyncio
+import threading
 
 class App(QWidget):
     def __init__(self):
@@ -121,10 +122,9 @@ class App(QWidget):
 
         self.show()
 
-    
+
     def on_click(self):
-        """
-        Implements logic for UI
+        """Implements logic for the UI
 
         Takes no arguments
         Results in creating and sending a command to the shell
@@ -145,29 +145,32 @@ class App(QWidget):
         #         -iwad wads/{self.titles[self.title_combo.currentText()]} {self.wads[self.map_le.text()]} \
         #         -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'    
         
-        command = f'prboom-plus \
+        cmd = f'prboom-plus \
             -iwad wads/{self.titles[self.title_combo.currentText()]} \
             -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
 
         # Apply chosen settings
         if (warp := self.map_le.text()): # and self.title_combo.currentText() != 'Doom II: Master Levels':
-            command += f' -warp {warp}'
+            cmd += f' -warp {warp}'
         if (net := self.ip_le.text()):
-            command += f' -net {net}'
+            cmd += f' -net {net}'
 
         for key in settings:
             if key:
-                command += ' -' + settings[key]
-
-        print(command)
+                cmd += ' -' + settings[key]
 
         # Execute final command string
-        os.system(command)
+        # Additionaly create a thread so that it desn't freeze the app
+        def exec_cmd(cmd, *arvs):
+            os.system(cmd)
+            
+        threading.Thread(target=exec_cmd, args=(cmd, 1)).start()
+        
 
-
-    # Server logic NOT IMPLEMENTED
+    # Server logic NOT IMPLEMENTED yet
     def on_click_server(self):
         print("Server")
+
 
 # If this is the main file
 if __name__ == '__main__':
