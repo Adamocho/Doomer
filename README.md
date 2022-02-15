@@ -10,7 +10,7 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
 - TNT Evilution
 - Plutonia  
 
-**`Incoming support for master levels, I hope`**
+**`Incoming support for master levels`**
 
 ## Features:
 - Select which title you want to play
@@ -33,5 +33,4 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
 - Tabs
 - New background
 - New layout
-- Don't create "batch.bat" instead do *os.system()* call
 - Setup script or create README section for set up

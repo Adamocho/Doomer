@@ -78,14 +78,14 @@ class App(QWidget):
         self.setGeometry(800, 300, self.win_width, self.win_height)
         self.setFixedSize(self.win_width, self.win_height)
         self.setWindowTitle("Doomer")
-        self.setWindowIcon(QIcon('icons/prbico1.png'))
+        self.setWindowIcon(QIcon('img/prbico1.png'))
         self.setFont(QFont('Consolas', 15))
 
         #   UI elements
         # Label = canvas for image
         self.label = QtWidgets.QLabel(self)
         # Assign img to label + scale it to match window size
-        self.label.setPixmap(QPixmap('icons/prbico1.png').scaled(self.win_width, self.win_height))
+        self.label.setPixmap(QPixmap('img/doomguys.png').scaled(self.win_width, self.win_height))
 
         # wad, skill, warp, nomonsters, fast, record, fastdemo, timedemo, playdemo, nomusic, nomouse, net
 
