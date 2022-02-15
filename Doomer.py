@@ -4,7 +4,6 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap
 from datetime import datetime
 import os
 import sys
-import asyncio
 import threading
 
 class App(QWidget):
@@ -21,7 +20,7 @@ class App(QWidget):
         }
         #'Doom II: Master Levels': 'doom2.wad -file'
 
-        self.wads = {
+        self.ml_wads = {
             '': 'wads/attack.wad',
             1: 'wads/attack.wad',
             2: 'wads/canyon.wad',
@@ -59,29 +58,26 @@ class App(QWidget):
         self.setWindowTitle("Doomer")
         self.setWindowIcon(QIcon('icons/prbico1.png'))
         self.setFont(QFont('Consolas', 15))
-        #self.setFont(QFont('MS Shell Dlg 2', 15))
 
-
-        #   Now there's some UI
-
+        #   UI elements
         # Label = canvas for image
-        self.label = QtWidgets.QLabel(self)                                                                                
+        self.label = QtWidgets.QLabel(self)
         # Assign img to label + scale it to match window size
         self.label.setPixmap(QPixmap('icons/prbico1.png').scaled(self.win_width, self.win_height))
 
         # wad, skill, warp, nomonsters, fast, record, fastdemo, timedemo, playdemo, nomusic, nomouse, net
 
         # Game title combo box
-        self.title_combo = QtWidgets.QComboBox(self)                                                                        
+        self.title_combo = QtWidgets.QComboBox(self)
         self.title_combo.setGeometry(5, 5, 300, 30)
         self.title_combo.addItems(self.titles)
 
         # Difficulty combo box
-        self.diff_combo = QtWidgets.QComboBox(self)                                                                        
+        self.diff_combo = QtWidgets.QComboBox(self)
         self.diff_combo.setGeometry(315, 5, 125, 30)
         self.diff_combo.addItems(self.diff_lvls)
         # HMP is set by default
-        self.diff_combo.setCurrentIndex(2)                                                                                  
+        self.diff_combo.setCurrentIndex(2)
 
         # Record checkbox
         self.record_cbx = QtWidgets.QCheckBox('Record', self)
@@ -107,10 +103,10 @@ class App(QWidget):
         self.launch_btn.setGeometry(5, 395, 200, 50)
         self.launch_btn.clicked.connect(self.on_click)
 
+        # server logic to implement
         #self.server_btn = QtWidgets.QPushButton('Start Server', self)
         #self.server_btn.setGeometry(295, 395, 150, 50)
         #self.server_btn.clicked.connect(self.on_click_server)   
-            # UNKOMMENT THIS WHEN YOU FINISH WORKING ON SERVER SCRIPT!!!!!!!!!!!!!
 
         self.map_le = QtWidgets.QLineEdit(self)
         self.map_le.setGeometry(30, 200, 100, 35)
@@ -142,7 +138,7 @@ class App(QWidget):
         # For master levels implementation
         # if self.title_combo.currentText() == 'Doom II: Master Levels':
         #     command = f'prboom-plus \
-        #         -iwad wads/{self.titles[self.title_combo.currentText()]} {self.wads[self.map_le.text()]} \
+        #         -iwad wads/{self.titles[self.title_combo.currentText()]} {self.ml_wads[self.map_le.text()]} \
         #         -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'    
         
         cmd = f'prboom-plus \
@@ -162,10 +158,11 @@ class App(QWidget):
         # Execute final command string
         # Additionaly create a thread so that it desn't freeze the app
         def exec_cmd(cmd, *arvs):
+            """Executes shell command, used for threading"""
             os.system(cmd)
-            
+
         threading.Thread(target=exec_cmd, args=(cmd, 1)).start()
-        
+
 
     # Server logic NOT IMPLEMENTED yet
     def on_click_server(self):
