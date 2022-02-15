@@ -85,7 +85,7 @@ class App(QWidget):
         # Label = canvas for image
         self.label = QtWidgets.QLabel(self)
         # Assign img to label + scale it to match window size
-        self.label.setPixmap(QPixmap('img/doomguys.png').scaled(self.win_width, self.win_height))
+        self.label.setPixmap(QPixmap('img/marauder.png').scaled(self.win_width, self.win_height))
 
         # wad, skill, warp, nomonsters, fast, record, fastdemo, timedemo, playdemo, nomusic, nomouse, net
 
@@ -136,7 +136,7 @@ class App(QWidget):
 
         self.ip_le = QtWidgets.QLineEdit(self)
         self.ip_le.setGeometry(150, 200, 250, 35)
-        self.ip_le.setPlaceholderText('IP for multiplayer game')
+        self.ip_le.setPlaceholderText('IP for multiplayer')
 
         self.show()
 
