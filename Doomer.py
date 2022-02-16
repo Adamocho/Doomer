@@ -1,5 +1,7 @@
+from distutils.fancy_getopt import wrap_text
+from textwrap import wrap
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QTabWidget, QVBoxLayout
 from PyQt5.QtGui import QFont, QIcon, QPixmap
 from datetime import datetime
 import os
@@ -9,8 +11,8 @@ import threading
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.win_width = 450
-        self.win_height = 450
+        self.width = 450
+        self.height = 450
 
         self.titles = {
             'Ultimate Doom': 'doom.wad',
@@ -53,6 +55,7 @@ class App(QWidget):
         }
 
         self.complevels = {
+            'default' : -1,     # Current Prboom-plus
             'doom_12' : 0,      # Partial (improved) emulation of Doom.exe v1.2
             'doom_1666' : 1,    # Partial emulation of Doom.exe/Doom2.exe v1.666
             'doom2_19' : 2,     # Emulates the original Doom.exe v1.9 & Doom2's doom2.exe v1.9
@@ -71,12 +74,11 @@ class App(QWidget):
             'prboom_4' : 15,    # Emulates PrBoom v2.3.x
             'prboom_5' : 16,    # Emulates PrBoom v2.4.0
             'prboom_6' : 17,    # Latest PrBoom-plus
-            'default' : -1,     # Current Prboom-plus
         }
 
         # Window properties
-        self.setGeometry(800, 300, self.win_width, self.win_height)
-        self.setFixedSize(self.win_width, self.win_height)
+        self.setGeometry(800, 300, self.width, self.height)
+        self.setFixedSize(self.width, self.height)
         self.setWindowTitle("Doomer")
         self.setWindowIcon(QIcon('img/prbico1.png'))
         self.setFont(QFont('Consolas', 15))
@@ -85,7 +87,7 @@ class App(QWidget):
         # Label = canvas for image
         self.label = QtWidgets.QLabel(self)
         # Assign img to label + scale it to match window size
-        self.label.setPixmap(QPixmap('img/marauder.png').scaled(self.win_width, self.win_height))
+        self.label.setPixmap(QPixmap('img/marauder.png').scaled(self.width, self.height))
 
         # wad, skill, warp, nomonsters, fast, record, fastdemo, timedemo, playdemo, nomusic, nomouse, net
 
@@ -101,34 +103,37 @@ class App(QWidget):
         # HMP is set by default
         self.diff_combo.setCurrentIndex(2)
 
+        # Complevel combo box
+        self.complvl_combo = QtWidgets.QComboBox(self)
+        self.complvl_combo.setGeometry(5, 55, 125, 30)
+        self.complvl_combo.addItems(self.complevels)
+        # HMP is set by default
+        self.complvl_combo.setCurrentIndex(0)
+
+        """ Checkboxes """
         # Record checkbox
-        self.record_cbx = QtWidgets.QCheckBox('Record', self)
-        self.record_cbx.setGeometry(170, 40, 100, 30)
+        self.record_cbx = QtWidgets.QCheckBox('Record demo', self)
+        self.record_cbx.setGeometry(250, 405, 150, 30)
 
         # Fast checkbox
         self.fast_cbx = QtWidgets.QCheckBox('Fast', self)
-        self.fast_cbx.setGeometry(40, 80, 100, 30)
+        self.fast_cbx.setGeometry(300, 265, 100, 30)
 
         self.nomo_cbx = QtWidgets.QCheckBox('No Monsters', self)
-        self.nomo_cbx.setGeometry(310, 50, 130, 30)
+        self.nomo_cbx.setGeometry(300, 295, 130, 30)
 
         self.music_cbx = QtWidgets.QCheckBox('Music', self)
-        self.music_cbx.setGeometry(335, 110, 110, 30)
+        self.music_cbx.setGeometry(300, 325, 110, 30)
+        self.music_cbx.setChecked(True)
 
         self.mouse_cbx = QtWidgets.QCheckBox('Mouse', self)
-        self.mouse_cbx.setGeometry(330, 80, 110, 30)
+        self.mouse_cbx.setGeometry(300, 355, 110, 30)
+        self.mouse_cbx.setChecked(True)
 
         self.respawn_cbx = QtWidgets.QCheckBox('Respawn', self)
-        self.respawn_cbx.setGeometry(25, 50, 100, 30)
+        self.respawn_cbx.setGeometry(300, 235, 100, 30)
 
-        self.launch_btn = QtWidgets.QPushButton('Play\Join Game', self)
-        self.launch_btn.setGeometry(5, 395, 200, 50)
-        self.launch_btn.clicked.connect(self.on_click)
-
-        # server logic to implement
-        #self.server_btn = QtWidgets.QPushButton('Start Server', self)
-        #self.server_btn.setGeometry(295, 395, 150, 50)
-        #self.server_btn.clicked.connect(self.on_click_server)   
+        """ Line edits """
 
         self.map_le = QtWidgets.QLineEdit(self)
         self.map_le.setGeometry(30, 200, 100, 35)
@@ -137,6 +142,17 @@ class App(QWidget):
         self.ip_le = QtWidgets.QLineEdit(self)
         self.ip_le.setGeometry(150, 200, 250, 35)
         self.ip_le.setPlaceholderText('IP for multiplayer')
+
+        """ Buttons """
+
+        self.launch_btn = QtWidgets.QPushButton('Play\Join Game', self)
+        self.launch_btn.setGeometry(5, 395, 200, 50)
+        self.launch_btn.clicked.connect(self.on_click)
+        
+        # server logic to implement
+        # self.server_btn = QtWidgets.QPushButton('Start Server', self)
+        # self.server_btn.setGeometry(295, 395, 150, 50)
+        # self.server_btn.clicked.connect(self.on_click_server)   
 
         self.show()
 
@@ -152,8 +168,8 @@ class App(QWidget):
             self.record_cbx.isChecked(): f'record {datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}',
             self.fast_cbx.isChecked(): 'fast',
             self.nomo_cbx.isChecked(): 'nomonsters',
-            self.music_cbx.isChecked(): 'nomusic',
-            self.mouse_cbx.isChecked(): 'nomouse',
+            not self.music_cbx.isChecked(): 'nomusic',
+            not self.mouse_cbx.isChecked(): 'nomouse',
             self.respawn_cbx.isChecked(): 'respawn'
         }
 
