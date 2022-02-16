@@ -13,9 +13,10 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
 **`Incoming support for master levels`**
 
 ## Features:
-- Select which title you want to play
+- Select title
 - Choose dificulty
-- Record a demo file
+- Choose map and/or episode
+- Record demo file
 - Join a server
 - Host server by yourself
 - Choose whether you want:
@@ -27,9 +28,7 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
     and much, much more...
 
 ### Not yet implemented:
-- Compatibility level support
 - Save files dependent on title
-- Link to Doom Eternal (if found) // optional
 - Tabs
 - New background
 - New layout

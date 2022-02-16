@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from distutils.fancy_getopt import wrap_text
 from textwrap import wrap
 from PyQt5 import QtWidgets
@@ -105,7 +107,7 @@ class App(QWidget):
 
         # Complevel combo box
         self.complvl_combo = QtWidgets.QComboBox(self)
-        self.complvl_combo.setGeometry(5, 55, 125, 30)
+        self.complvl_combo.setGeometry(315, 40, 125, 30)
         self.complvl_combo.addItems(self.complevels)
         # HMP is set by default
         self.complvl_combo.setCurrentIndex(0)
@@ -146,13 +148,13 @@ class App(QWidget):
         """ Buttons """
 
         self.launch_btn = QtWidgets.QPushButton('Play\Join Game', self)
-        self.launch_btn.setGeometry(5, 395, 200, 50)
+        self.launch_btn.setGeometry(5, 395, 185, 50)
         self.launch_btn.clicked.connect(self.on_click)
         
-        # server logic to implement
-        # self.server_btn = QtWidgets.QPushButton('Start Server', self)
-        # self.server_btn.setGeometry(295, 395, 150, 50)
-        # self.server_btn.clicked.connect(self.on_click_server)   
+        # Host server button
+        self.server_btn = QtWidgets.QPushButton('Host Server', self)
+        self.server_btn.setGeometry(5, 345, 150, 50)
+        self.server_btn.clicked.connect(self.on_click_server)   
 
         self.show()
 
@@ -181,7 +183,8 @@ class App(QWidget):
         
         cmd = f'prboom-plus \
             -iwad wads/{self.titles[self.title_combo.currentText()]} \
-            -skill {str(self.diff_lvls[self.diff_combo.currentText()])}'
+            -skill {str(self.diff_lvls[self.diff_combo.currentText()])} \
+            -complevel {self.complevels[self.complvl_combo.currentText()]}'
 
         # Apply chosen settings
         if (warp := self.map_le.text()): # and self.title_combo.currentText() != 'Doom II: Master Levels':
@@ -204,7 +207,7 @@ class App(QWidget):
 
     # Server logic NOT IMPLEMENTED yet
     def on_click_server(self):
-        print("Server")
+        os.system("explorer.exe")
 
 
 # If this is the main file
