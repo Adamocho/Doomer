@@ -27,6 +27,25 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
     - respawning monsters  
     and much, much more...
 
+## Setup
+---
+
+Install python requirements by
+```bash
+$ [python3 -m] pip install -r requirements.txt
+```
+
+Move Doomer.py to prboom+ directory, where:
+- images are in /img dir
+- wads are in /wads
+
+Then, execute .py (or .exe from pyinstaller) file
+```bash
+$ python3 Doomer.py 
+# or just double-click .exe file, if created
+```
+
+
 ### Not yet implemented:
 - Save files dependent on title
 - Tabs
