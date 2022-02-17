@@ -35,7 +35,7 @@ Install python requirements by
 $ [python3 -m] pip install -r requirements.txt
 ```
 
-Move Doomer.py to prboom+ directory, where:
+Move `Doomer.py` to the prboom+ folder, where:
 - images are in /img dir
 - wads are in /wads
 
