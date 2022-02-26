@@ -89,7 +89,7 @@ class App(QWidget):
         # Label = canvas for image
         self.label = QtWidgets.QLabel(self)
         # Assign img to label + scale it to match window size
-        self.label.setPixmap(QPixmap('img/marauder.png').scaled(self.width, self.height))
+        self.label.setPixmap(QPixmap('img/dosguy0.png').scaled(self.width, self.height))
 
         # wad, skill, warp, nomonsters, fast, record, fastdemo, timedemo, playdemo, nomusic, nomouse, net
 

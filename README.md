@@ -1,6 +1,6 @@
-# DOOMER
+![# DOOMER](/img/logo2.svg)
 
-GUI for good old boomer DOOM gamers (like me 💪).  
+GUI for boomers, who like the old DOOM (myself included)
 Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
 
 ## Supported titles:
