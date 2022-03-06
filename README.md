@@ -14,7 +14,7 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
 
 ## Features:
 - Select title
-- Choose dificulty
+- Choose difficulty
 - Choose map and/or episode
 - Record demo file
 - Join a server
@@ -42,7 +42,7 @@ Move `Doomer.py` to the prboom+ folder, where:
 Then, execute .py (or .exe from pyinstaller) file
 ```bash
 $ python3 Doomer.py 
-# or just double-click .exe file, if created
+# OR double-click .exe file, if exists
 ```
 
 
