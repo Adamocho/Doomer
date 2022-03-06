@@ -28,8 +28,6 @@ Uses [prboom](http://prboom-plus.sourceforge.net/) as engine.
     and much, much more...
 
 ## Setup
----
-
 Install python requirements by
 ```bash
 $ [python3 -m] pip install -r requirements.txt
@@ -44,11 +42,9 @@ Then, execute .py (or .exe from pyinstaller) file
 $ python3 Doomer.py 
 # OR double-click .exe file, if exists
 ```
-
-
 ### Not yet implemented:
 - Save files dependent on title
-- Tabs
-- New background
-- New layout
-- Setup script or create README section for set up
+- Tabs (GUI)
+- New background (GUI)
+- New layout (GUI)
+- Setup script or create README section for set up (partially done)
