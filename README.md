@@ -42,7 +42,7 @@ If you don't believe me, try it out!
 
 Install python requirements by
 ```bash
-$ [python3 -m] pip install -r requirements.txt
+[python3 -m] pip[3] install -r requirements.txt
 ```
 
 Move `Doomer.py` to the prboom+ folder, where:
@@ -51,6 +51,6 @@ Move `Doomer.py` to the prboom+ folder, where:
 
 Then, execute .py (or .exe from pyinstaller) file
 ```bash
-$ python3 Doomer.py 
+python3 Doomer.py
 # OR double-click .exe file, if exists
 ```
